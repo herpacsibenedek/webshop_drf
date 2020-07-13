@@ -27,7 +27,7 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
     empty_value_display = 'N/A'
-    readonly_fields = ('last_login', 'date_joined', 'email')
+    readonly_fields = ('last_login', 'date_joined')
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
