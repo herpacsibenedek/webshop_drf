@@ -1,14 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .forms import UserCreationForm, UserChangeForm
+from .models import User
 
 
-class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = CustomUser
+class UserAdmin(UserAdmin):
+    add_form = UserCreationForm
+    form = UserChangeForm
+    model = User
     list_display = ('email', 'is_staff', 'is_active')
     list_filter = ('email', 'is_staff', 'is_active',)
     fieldsets = (
@@ -27,7 +27,7 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
     empty_value_display = 'N/A'
-    readonly_fields = ('last_login', 'date_joined')
+    readonly_fields = ('last_login', 'date_joined', 'email')
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(User, UserAdmin)

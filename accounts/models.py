@@ -1,20 +1,22 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import PermissionsMixin
+from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 
-from .managers import CustomUserManager
+from .managers import UserManager
 
 
-class CustomUser(AbstractUser):
+class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()
+    class Meta:
+        verbose_name = "User"
+        verbose_name_plural = "Users"
+
+    objects = UserManager()
 
     def __str__(self):
         return self.email
