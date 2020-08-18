@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'rest_auth',
     # project's apps
     'accounts',
+    'products',
+    # other development extension
+    'django_extensions',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -166,10 +169,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserSerializer',
-    'LOGIN_SERIALIZER': 'accounts.serializers.LoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'accounts.api.serializers.UserSerializer',
+    'LOGIN_SERIALIZER': 'accounts.api.serializers.LoginSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'accounts.serializers.RegisterSerializer',
+    'REGISTER_SERIALIZER': 'accounts.api.serializers.RegisterSerializer',
 }

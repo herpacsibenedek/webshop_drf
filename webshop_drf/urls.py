@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Rest api views
-    path('api/account/', include('accounts.api.urls', 'blog_api')),
+    path('api/account/', include('accounts.api.urls')),
+    path('api/product/', include('products.api.urls')),
 ]
