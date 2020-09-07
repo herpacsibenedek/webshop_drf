@@ -4,6 +4,98 @@
 		"selected_items":
 		[
 			[
+				"prod",
+				"products"
+			],
+			[
+				"pr",
+				"products"
+			],
+			[
+				"template",
+				"product_template"
+			],
+			[
+				"Product",
+				"ProductVariant"
+			],
+			[
+				"produc",
+				"product"
+			],
+			[
+				"attr",
+				"attribute"
+			],
+			[
+				"vaid",
+				"validated_data"
+			],
+			[
+				"valida",
+				"validated_data"
+			],
+			[
+				"product",
+				"product_template_id"
+			],
+			[
+				"va",
+				"variant"
+			],
+			[
+				"T",
+				"ProducTemplate"
+			],
+			[
+				"Pro",
+				"ProductVariant"
+			],
+			[
+				"vali",
+				"validated_data"
+			],
+			[
+				"Att",
+				"AttributeProduct"
+			],
+			[
+				"Pri",
+				"print"
+			],
+			[
+				"c",
+				"connection"
+			],
+			[
+				"Produc",
+				"ProductTemplate"
+			],
+			[
+				"re",
+				"required"
+			],
+			[
+				"Cas",
+				"class"
+			],
+			[
+				"f",
+				"fields"
+			],
+			[
+				"s",
+				"slug"
+			],
+			[
+				"se",
+				"self"
+			],
+			[
+				"__",
+				"__all__"
+			],
+			[
 				"th",
 				"through"
 			],
@@ -14,10 +106,6 @@
 			[
 				"Connec",
 				"connection"
-			],
-			[
-				"attr",
-				"attribute_product"
 			],
 			[
 				"if",
@@ -38,10 +126,6 @@
 			[
 				"a",
 				"attribute"
-			],
-			[
-				"Product",
-				"ProductType"
 			],
 			[
 				"w",
@@ -112,10 +196,18 @@
 	"buffers":
 	[
 		{
+			"file": "products/tests/test_models.py",
+			"settings":
+			{
+				"buffer_size": 54,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "products/models.py",
 			"settings":
 			{
-				"buffer_size": 5375,
+				"buffer_size": 6445,
 				"line_ending": "Windows"
 			}
 		}
@@ -158,29 +250,55 @@
 	[
 		"/E/p/webshop_drf",
 		"/E/p/webshop_drf/products",
-		"/E/p/webshop_drf/products/api"
+		"/E/p/webshop_drf/products/tests"
 	],
 	"file_history":
 	[
-		"/E/p/webshop_drf/products/models.py",
+		"/E/p/webshop_drf/products/api/serializers.py",
+		"/E/p/webshop_drf/webshop_drf/urls.py",
+		"/E/p/webshop_drf/products/tests/test_models.py",
 		"/E/p/webshop_drf/products/api/views.py",
+		"/E/p/webshop_drf/webshop_drf/utils.py",
+		"/E/p/webshop_drf/products/api/urls.py",
+		"/E/p/webshop_drf/accounts/tests/test_models.py",
+		"/E/p/webshop_drf/accounts/api/urls.py",
+		"/E/p/webshop_drf/products/models.py",
+		"/E/p/webshop_drf/accounts/migrations/0001_initial.py",
+		"/E/p/webshop_drf/accounts/models.py",
+		"/E/p/webshop_drf/webshop_drf/settings.py",
+		"/E/p/proba/attributes/serializers.py",
+		"/E/p/webshop_drf/products/views.py",
+		"/E/p/webshop_drf/fixtures/dumpdata.txt",
+		"/E/p/webshop_drf/products/managers.py",
+		"/E/p/webshop_drf/env/Lib/site-packages/django/db/models/manager.py",
+		"/E/p/webshop_drf/env/Lib/site-packages/django/db/models/query.py",
+		"/E/p/webshop_drf/products/migrations/0002_auto_20200820_1630.py",
+		"/E/p/webshop_drf/products/migrations/0001_initial.py",
+		"/E/p/webshop_drf/products/migrations/0003_remove_attributevalue_slug.py",
+		"/E/p/webshop_drf/products/migrations/0004_auto_20200820_1650.py",
+		"/E/p/webshop_drf/products/migrations/0005_remove_attribute_product_templates.py",
+		"/E/p/webshop_drf/fixtures/dumpdata.py",
+		"/E/p/webshop_drf/initial_data.json",
+		"/E/p/webshop_drf/.gitignore",
+		"/E/p/webshop_drf/dumpdata.py",
+		"/E/p/webshop_drf/webshop_drf/fixtures/initial_data.json",
+		"/E/p/webshop_drf/products/api/fields.py",
+		"/E/p/webshop_drf/products/signals.py",
+		"/E/p/ecommerce/src/eccomerce/utils.py",
+		"/E/p/ecommerce/src/products/models.py",
+		"/C/Users/Benedek/Downloads/saleor-2.8.0/saleor-2.8.0/saleor/product/models.py",
+		"/E/p/webshop_drf/products/migrations/0002_connectedvariantattribute.py",
+		"/E/p/webshop_drf/products/admin.py",
 		"/E/p/tutorial/manage.py",
 		"/E/p/django_rest_tutorial/tutorial/snippets/models.py",
-		"/E/p/ecommerce/src/products/models.py",
 		"/E/p/zoldseg_bolt/products/models.py",
 		"/E/p/webshop_drf/products/validators.py",
 		"/E/p/webshop_drf/webshop_drf.bat",
 		"/E/p/webshop_drf/ecommerce.bat",
 		"/E/p/webshop_drf/start_zoldseg_bolt.bat",
-		"/E/p/webshop_drf/products/api/serializers.py",
-		"/E/p/webshop_drf/products/api/urls.py",
-		"/E/p/webshop_drf/products/views.py",
-		"/E/p/webshop_drf/webshop_drf/urls.py",
 		"/E/p/webshop_drf/products/serializers.py",
-		"/E/p/webshop_drf/accounts/api/urls.py",
 		"/E/p/webshop_drf/accounts/api/serializers.py",
 		"/E/p/webshop_drf/accounts/api/views.py",
-		"/E/p/webshop_drf/products/admin.py",
 		"/E/p/webshop_drf/products/start_env.py",
 		"/E/p/webshop_drf/accounts/admin.py",
 		"/E/p/ecommerce/src/accounts/admin.py",
@@ -189,14 +307,10 @@
 		"/E/p/ecommerce/src/carts/admin.py",
 		"/E/p/ecommerce/src/billing/models.py",
 		"/E/p/ecommerce/src/billing/admin.py",
-		"/E/p/webshop_drf/products/tests/test_models.py",
 		"/C/Users/Benedek/Downloads/saleor-master/saleor-master/saleor/demo/urls.py",
 		"/C/Users/Benedek/Downloads/saleor-master/saleor-master/saleor/data_feeds/urls.py",
 		"/C/Users/Benedek/Downloads/saleor-master/saleor-master/manage.py",
 		"/C/Users/Benedek/Downloads/saleor-master/saleor-master/saleor/urls.py",
-		"/E/p/webshop_drf/products/migrations/0001_initial.py",
-		"/E/p/webshop_drf/products/managers.py",
-		"/E/p/webshop_drf/webshop_drf/settings.py",
 		"/E/p/webshop_drf/accounts/views.py",
 		"/E/p/zsofiesbeni/zsbnagykalandja/css/zsb.css",
 		"/E/p/zsofiesbeni/zsbnagykalandja/english/index.html",
@@ -236,9 +350,7 @@
 		"/E/p/zsofiesbeni/index.html",
 		"/E/p/models.py",
 		"/F/dettiszülinapivideo/MOV01C.MOD",
-		"/E/p/webshop_drf/accounts/models.py",
 		"/E/p/webshop_drf/accounts/managers.py",
-		"/E/p/webshop_drf/accounts/tests/test_models.py",
 		"/E/p/webshop_drf/requirements.txt",
 		"/E/p/webshop_drf/accounts/forms.py",
 		"/E/p/webshop_drf/accounts/apps.py",
@@ -250,7 +362,6 @@
 		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/urls.py",
 		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/views.py",
 		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/serializers.py",
-		"/E/p/webshop_drf/accounts/migrations/0001_initial.py",
 		"/E/p/webshop_drf/accounts/migrations/0003_auto_20200721_1338.py",
 		"/E/p/webshop_drf/accounts/migrations/0002_auto_20200717_1135.py",
 		"/E/p/webshop_drf/db.sqlite3",
@@ -270,28 +381,11 @@
 		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
 		"/E/p/webshop_drf/env/Lib/site-packages/rest_framework/permissions.py",
 		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Default (Windows).sublime-keymap",
-		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings",
-		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
-		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/1self.sublime-settings",
-		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Python.sublime-settings",
-		"/E/p/ecommerce2/accounts/views.py",
-		"/E/p/webshop_drf/accounts/custom_auth_token.py",
-		"/E/p/ecommerce/src/eccomerce/urls.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_framework/authentication.py",
-		"/E/p/webshop_drf/env/list_imports.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/django/db/models/manager.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/django/forms/forms.py",
-		"/E/p/webshop_drf/addresses/migrations/__init__.py",
-		"/E/p/ecommerce2/accounts/admin.py",
-		"/E/p/ecommerce2/accounts/models.py",
-		"/E/p/webshop_drf/accounts/tests.py",
-		"/E/p/webshop_drf/accounts/migrations/__init__.py",
-		"/E/p/webshop_drf/.gitignore"
+		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings"
 	],
 	"find":
 	{
-		"height": 64.0
+		"height": 44.8
 	},
 	"find_in_files":
 	{
@@ -305,6 +399,25 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"slug",
+			"variant",
+			"cpa",
+			"validated_data",
+			"write_only",
+			"create",
+			"connected_products",
+			"AttributeProductSerializer",
+			"extra_kwargs",
+			")\n",
+			"        ordering = ['-id']",
+			"account",
+			"):",
+			"AttributeHIField2",
+			"AttributeHyperlinkedIdentityField",
+			"SlugField",
+			"unique_slug_generator",
+			"\"attributes",
+			"attributes",
 			"\n    permission_classes = [permissions.IsAuthenticatedOrReadOnly]",
 			"['__all__']",
 			"Serializer",
@@ -326,6 +439,13 @@
 		"regex": false,
 		"replace_history":
 		[
+			"attribute",
+			"pv",
+			"item",
+			"",
+			"):\n    \"\"\"\n    \"\"\"",
+			"ConnectedAttributeHIField",
+			"AttributeHIField",
 			"",
 			"'__all__'",
 			"ViewSet",
@@ -359,19 +479,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "products/models.py",
+					"file": "products/tests/test_models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5375,
+						"buffer_size": 54,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4204,
-								4204
+								51,
+								51
 							]
 						],
 						"settings":
@@ -404,41 +524,31 @@
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
@@ -448,17 +558,135 @@
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
-								"bh_unmatched_content"
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "products/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6445,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
 							],
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 819.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -466,7 +694,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 30.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -481,11 +709,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.559596844873,
 			1.0
 		],
 		"rows":
@@ -507,7 +742,7 @@
 	"project": "",
 	"replace":
 	{
-		"height": 120.8
+		"height": 79.0
 	},
 	"save_all_on_build": true,
 	"select_file":
