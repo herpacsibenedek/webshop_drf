@@ -8,7 +8,3 @@ class ProductManager(models.Manager):
         if qs.count() == 1:
             return qs.first()
         return None
-
-
-class ConnectedAttributeManager(models.Manager):
-    pass

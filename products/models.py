@@ -3,6 +3,8 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from djmoney.models.fields import MoneyField, CurrencyField
+from djmoney.models.validators import MinMoneyValidator
 
 
 from .managers import *
@@ -36,7 +38,15 @@ class Product(models.Model):
         related_name="products",
         on_delete=models.CASCADE
     )
-    price = models.PositiveIntegerField(default=0)
+    price = MoneyField(
+        max_digits=19,
+        decimal_places=4,
+        validators=[
+            MinMoneyValidator(0),
+        ]
+    )
+    """There is an CurrencyField named 'price_currency'
+    associated with price field which stores a choice of currency"""
     active = models.BooleanField(default=False)
     created = models.DateTimeField(editable=False, default=timezone.now)
     modified = models.DateTimeField(default=timezone.now)
@@ -69,7 +79,14 @@ class ProductVariant(models.Model):
         related_name="variants",
         on_delete=models.CASCADE
     )
-    price = models.PositiveIntegerField(blank=True, null=True)
+    price = MoneyField(
+        max_digits=19,
+        decimal_places=4,
+        null=True,
+        validators=[
+            MinMoneyValidator(0),
+        ]
+    )
     active = models.BooleanField(default=False)
     created = models.DateTimeField(editable=False, default=timezone.now)
     modified = models.DateTimeField(default=timezone.now)
@@ -228,10 +245,10 @@ class ConnectedVariantAttribute(AbstractConnectedAttribute):
         unique_together = ('variant', 'connection',)
 
 
-@receiver(pre_save, sender=ProductTemplate)
-@receiver(pre_save, sender=Product)
-@receiver(pre_save, sender=ProductVariant)
-@receiver(pre_save, sender=Attribute)
+@ receiver(pre_save, sender=ProductTemplate)
+@ receiver(pre_save, sender=Product)
+@ receiver(pre_save, sender=ProductVariant)
+@ receiver(pre_save, sender=Attribute)
 def slug_pre_save(sender, instance, *args, **kwargs):
     """
     Create a slug

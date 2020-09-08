@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"Test",
+				"TestCase"
+			],
+			[
+				"a",
+				"a"
+			],
+			[
+				"Attr",
+				"Attribute"
+			],
+			[
 				"prod",
 				"products"
 			],
@@ -112,20 +124,12 @@
 				"ifmain\tif __name__ == '__main__'"
 			],
 			[
-				"Attr",
-				"AttributeValue"
-			],
-			[
 				"def",
 				"default"
 			],
 			[
 				"p",
 				"product_type"
-			],
-			[
-				"a",
-				"attribute"
 			],
 			[
 				"w",
@@ -195,22 +199,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "products/tests/test_models.py",
-			"settings":
-			{
-				"buffer_size": 54,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "products/models.py",
-			"settings":
-			{
-				"buffer_size": 6445,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -249,27 +237,31 @@
 	"expanded_folders":
 	[
 		"/E/p/webshop_drf",
-		"/E/p/webshop_drf/products",
-		"/E/p/webshop_drf/products/tests"
+		"/E/p/webshop_drf/accounts",
+		"/E/p/webshop_drf/accounts/tests",
+		"/E/p/webshop_drf/products"
 	],
 	"file_history":
 	[
+		"/E/p/webshop_drf/products/tests/test_models.py",
+		"/E/p/webshop_drf/todo.txt",
+		"/E/p/webshop_drf/products/managers.py",
+		"/E/p/webshop_drf/accounts/tests/test_managers.py",
+		"/E/p/webshop_drf/accounts/tests/test_models.py",
+		"/E/p/webshop_drf/products/models.py",
+		"/E/p/webshop_drf/env/Lib/site-packages/pytz/exceptions.py",
+		"/E/p/webshop_drf/webshop_drf/settings.py",
 		"/E/p/webshop_drf/products/api/serializers.py",
 		"/E/p/webshop_drf/webshop_drf/urls.py",
-		"/E/p/webshop_drf/products/tests/test_models.py",
 		"/E/p/webshop_drf/products/api/views.py",
 		"/E/p/webshop_drf/webshop_drf/utils.py",
 		"/E/p/webshop_drf/products/api/urls.py",
-		"/E/p/webshop_drf/accounts/tests/test_models.py",
 		"/E/p/webshop_drf/accounts/api/urls.py",
-		"/E/p/webshop_drf/products/models.py",
 		"/E/p/webshop_drf/accounts/migrations/0001_initial.py",
 		"/E/p/webshop_drf/accounts/models.py",
-		"/E/p/webshop_drf/webshop_drf/settings.py",
 		"/E/p/proba/attributes/serializers.py",
 		"/E/p/webshop_drf/products/views.py",
 		"/E/p/webshop_drf/fixtures/dumpdata.txt",
-		"/E/p/webshop_drf/products/managers.py",
 		"/E/p/webshop_drf/env/Lib/site-packages/django/db/models/manager.py",
 		"/E/p/webshop_drf/env/Lib/site-packages/django/db/models/query.py",
 		"/E/p/webshop_drf/products/migrations/0002_auto_20200820_1630.py",
@@ -378,10 +370,7 @@
 		"/E/p/google_form/index.html",
 		"/E/p/google_form/google_script_form_ajax.js",
 		"/E/p/google_form/index2.html",
-		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_framework/permissions.py",
-		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Default (Windows).sublime-keymap",
-		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings"
+		"/C/Users/Benedek/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap"
 	],
 	"find":
 	{
@@ -474,227 +463,14 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "products/tests/test_models.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 54,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								51,
-								51
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "products/models.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6445,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 34.0
+		"height": 40.0
 	},
 	"input":
 	{
@@ -709,18 +485,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.559596844873,
 			1.0
 		],
 		"rows":

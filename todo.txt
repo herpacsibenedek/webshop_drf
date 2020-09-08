@@ -1,2 +1,2 @@
-1. product.price not accepting 6.65
+*1. product.price not accepting 6.65 moneyfield
 2. product modified /created save mixin

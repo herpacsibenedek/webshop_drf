@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    # Currency and exchange rates
+    'djmoney',
+    'djmoney.contrib.exchange',
     # project's apps
     'accounts',
     'products',
@@ -177,3 +180,12 @@ REST_AUTH_SERIALIZERS = {
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.api.serializers.RegisterSerializer',
 }
+
+# Currency settings
+CURRENCIES = ('HUF', 'USD', 'EUR', 'GBP')
+CURRENCY_CHOICES = [
+    ('HUF', 'HUF Ft'),
+    ('USD', 'USD $'),
+    ('EUR', 'EUR €'),
+    ('GBP', 'GBP £')
+]
