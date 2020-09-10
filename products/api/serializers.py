@@ -1,6 +1,9 @@
+from decimal import Decimal
 from pprint import pprint
 
+
 from django.utils.translation import ugettext_lazy as _
+from djmoney.money import Currency, Money
 from rest_framework import serializers
 
 from ..models import *
@@ -228,32 +231,55 @@ class ConnectedVariantAttributeSerializer(serializers.ModelSerializer):
 
 
 class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(
+        required=False
+    )
+
     product_id = serializers.PrimaryKeyRelatedField(
         queryset=Product.objects.all(),
         source='product.id',
-        write_only=True
+        write_only=True,
+        required=False
     )
     variant_attributes = ConnectedVariantAttributeSerializer(
         source='attributes',
         many=True,
         required=False
     )
+    price_currency = serializers.CharField(
+        required=False,
+        allow_blank=True,
+    )
+    price_amount = serializers.DecimalField(
+        source='price.amount',
+        max_digits=19,
+        decimal_places=4,
+        required=False,
+        default=None,
+        allow_null=True,
+    )
 
     class Meta:
         model = ProductVariant
-        fields = ['id', 'name', 'slug', 'price',
+        fields = ['id', 'name', 'slug', 'price_amount', 'price_currency',
                   'active', 'created', 'modified', 'url', 'product', 'product_id', 'variant_attributes']
         read_only_fields = ['created', 'modified', 'product', 'slug']
         ordering = ['-id']
 
     def create(self, validated_data):
+        if validated_data.get('product'):
+            p = validated_data.get('product').get('id', validated_data.get('product'))
 
         variant = ProductVariant(
             name=validated_data['name'],
-            product=validated_data['product']['id'],
-            price=validated_data.get('price', None),
+            product=p,
             active=validated_data.get('active', False)
         )
+        if validated_data['price'].get('amount'):
+            variant.price = Money(
+                amount=validated_data['price'].get('amount', Decimal(0.0)),
+                currency=validated_data.get('price_currency', settings.DEFAULT_CURRENCY),
+            )
         variant.save()
 
         # Create each ConnectedVariantAttribute instance associated with it
@@ -271,8 +297,19 @@ class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
         """
 
         instance.name = validated_data.get('name', instance.name)
-        instance.price = validated_data.get('price', instance.price)
         instance.active = validated_data.get('active', instance.active)
+        if validated_data.get('price'):
+            if validated_data['price'].get('amount'):
+                instance.price = Money(
+                    amount=validated_data['price'].get('amount', instance.price.amount),
+                    currency=validated_data.get('price_currency', instance.price_currency),
+                )
+        elif validated_data.get('price_currency'):
+            instance.price = Money(
+                amount=instance.price.amount,
+                currency=validated_data['price_currency'],
+            )
+
         instance.save()
 
         # ConnectedVariantAttribute
@@ -297,15 +334,22 @@ class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
 
         return instance
 
+    def validate_price_currency(self, data):
+        if not data:
+            data = settings.DEFAULT_CURRENCY
+        if data not in (cc := [str(x[0]) for x in settings.CURRENCY_CHOICES]):
+            raise serializers.ValidationError(
+                _(f"Currency({data}) is not one of the permitted values: {', '.join(cc)}")
+            )
+        else:
+            return data
 
-class ProductVariantSerializerForProduct(serializers.HyperlinkedModelSerializer):
-    id = serializers.IntegerField(required=False)
-
-    class Meta:
-        model = ProductVariant
-        fields = ['id', 'name', 'slug', 'price',
-                  'active', 'url', 'product']
-        read_only_fields = ['created', 'modified', 'product', 'slug']
+    def validate_price_amount(self, data):
+        if data < 0:
+            raise serializers.ValidationError(
+                _(f"Price cannot be negative")
+            )
+        return data
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -318,16 +362,30 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         many=True,
         required=False
     )
-    product_variants = ProductVariantSerializerForProduct(
+    product_variants = ProductVariantSerializer(
         source='variants',
         many=True,
         required=False
     )
 
+    min_price_currency = serializers.CharField(
+        required=False,
+        allow_blank=True,
+    )
+    min_price_amount = serializers.DecimalField(
+        source='min_price.amount',
+        max_digits=19,
+        decimal_places=4,
+        required=False,
+        default=0,
+        allow_null=True,
+    )
+
     class Meta:
         model = Product
         fields = ['id', 'name', 'slug',
-                  'product_template', 'description', 'price', 'active',
+                  'product_template', 'description',
+                  'min_price_amount', 'min_price_currency', 'active',
                   'created', 'modified', 'url',
                   'product_attributes',
                   'product_variants',
@@ -342,12 +400,17 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         """
 
         # Create the Attribute instance
-        product = Product.objects.create(
+        product = Product(
             name=validated_data['name'],
             product_template=validated_data['product_template']['id'],
-            price=validated_data.get('price', 0),
             active=validated_data.get('active', False)
         )
+        if validated_data['min_price'].get('amount'):
+            product.min_price = Money(
+                amount=validated_data['min_price'].get('amount', Decimal(0.0)),
+                currency=validated_data.get('min_price_currency', settings.DEFAULT_CURRENCY),
+            )
+        product.save()
 
         # Create each ConnectedProductAttribute instance associated with it
         for item in validated_data.get('attributes', []):
@@ -359,12 +422,18 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
         # Create each Variant instance associated with it
         for item in validated_data.get('variants', []):
-            ProductVariant.objects.create(
+            variant = ProductVariant(
                 name=item['name'],
                 product=product,
-                price=item.get('price', None),
                 active=item.get('active', False)
             )
+            if item.get('price'):
+                if item['price'].get('amount'):
+                    variant.price = Money(
+                        amount=item['price'].get('amount', Decimal(0.0)),
+                        currency=item.get('price_currency', settings.DEFAULT_CURRENCY),
+                    )
+            variant.save()
 
         return product
 
@@ -378,8 +447,18 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
         # Update the Product instance
         instance.name = validated_data.get('name', instance.name)
-        instance.price = validated_data.get('price', instance.price)
         instance.active = validated_data.get('active', instance.active)
+        if validated_data.get('min_price'):
+            if validated_data['min_price'].get('amount'):
+                instance.min_price = Money(
+                    amount=validated_data['min_price'].get('amount', instance.min_price.amount),
+                    currency=validated_data.get('min_price_currency', instance.min_price_currency),
+                )
+        elif validated_data.get('min_price_currency'):
+            instance.min_price = Money(
+                amount=instance.min_price.amount,
+                currency=validated_data['min_price_currency'],
+            )
         instance.save()
 
         # ConnectedProductAttribute
@@ -418,9 +497,19 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
                 id=item.get('id'),
                 name=item['name'],
                 product=instance,
-                price=item.get('price', None),
                 active=item.get('active', False)
             )
+            if item.get('price'):
+                if item['price'].get('amount'):
+                    variant.price = Money(
+                        amount=item['price']['amount'],
+                        currency=item.get('price_currency', settings.DEFAULT_CURRENCY),
+                    )
+            elif item.get('price_currency'):
+                variant.price = Money(
+                    amount=variant.price.amount,
+                    currency=item['price_currency'],
+                )
             variant.save()
 
         return instance
@@ -432,4 +521,21 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
                 raise serializers.ValidationError(_("ProductTemplate is not same."))
             if attr['value'].attribute != attr['connection'].attribute:
                 raise serializers.ValidationError(_("Attribute is not same."))
+        return data
+
+    def validate_min_price_currency(self, data):
+        if not data:
+            data = settings.DEFAULT_CURRENCY
+        if data not in (cc := [str(x[0]) for x in settings.CURRENCY_CHOICES]):
+            raise serializers.ValidationError(
+                _(f"Currency({data}) is not one of the permitted values: {', '.join(cc)}")
+            )
+        else:
+            return data
+
+    def validate_min_price_amount(self, data):
+        if data < 0:
+            raise serializers.ValidationError(
+                _(f"Price cannot be negative")
+            )
         return data

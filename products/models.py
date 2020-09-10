@@ -1,14 +1,19 @@
+from decimal import Decimal
+
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
 from djmoney.models.fields import MoneyField, CurrencyField
 from djmoney.models.validators import MinMoneyValidator
-
+from webshop_drf.utils import unique_random_string_generator
 
 from .managers import *
-from webshop_drf.utils import unique_random_string_generator
 
 
 class ProductTemplate(models.Model):
@@ -38,15 +43,17 @@ class Product(models.Model):
         related_name="products",
         on_delete=models.CASCADE
     )
-    price = MoneyField(
+    min_price = MoneyField(
         max_digits=19,
         decimal_places=4,
+        default=0,
+        default_currency=settings.DEFAULT_CURRENCY,
+        currency_choices=settings.CURRENCY_CHOICES,
+        currency_max_length=settings.DEFAULT_CURRENCY_CODE_LENGTH,
         validators=[
             MinMoneyValidator(0),
         ]
     )
-    """There is an CurrencyField named 'price_currency'
-    associated with price field which stores a choice of currency"""
     active = models.BooleanField(default=False)
     created = models.DateTimeField(editable=False, default=timezone.now)
     modified = models.DateTimeField(default=timezone.now)
@@ -83,8 +90,11 @@ class ProductVariant(models.Model):
         max_digits=19,
         decimal_places=4,
         null=True,
+        default_currency=settings.DEFAULT_CURRENCY,
+        currency_choices=settings.CURRENCY_CHOICES,
+        currency_max_length=settings.DEFAULT_CURRENCY_CODE_LENGTH,
         validators=[
-            MinMoneyValidator(0),
+            MinValueValidator(Decimal(0.00)),
         ]
     )
     active = models.BooleanField(default=False)
@@ -245,13 +255,29 @@ class ConnectedVariantAttribute(AbstractConnectedAttribute):
         unique_together = ('variant', 'connection',)
 
 
-@ receiver(pre_save, sender=ProductTemplate)
-@ receiver(pre_save, sender=Product)
-@ receiver(pre_save, sender=ProductVariant)
-@ receiver(pre_save, sender=Attribute)
+@receiver(pre_save, sender=ProductTemplate)
+@receiver(pre_save, sender=Product)
+@receiver(pre_save, sender=ProductVariant)
+@receiver(pre_save, sender=Attribute)
 def slug_pre_save(sender, instance, *args, **kwargs):
     """
     Create a slug
     """
     if not instance.slug:
         instance.slug = unique_random_string_generator(instance, size=10)
+
+
+@receiver(pre_save, sender=Product)
+def validate_choice_product(sender, instance, *args, **kwargs):
+    if (c := str(instance.min_price.currency)) not in (cc := [str(x[0]) for x in settings.CURRENCY_CHOICES]):
+        raise ValidationError(
+            _(f"Currency({c}) is not one of the permitted values: {cc}")
+        )
+
+
+@receiver(pre_save, sender=ProductVariant)
+def validate_choice_variant(sender, instance, *args, **kwargs):
+    if (c := str(instance.price_currency)) not in (cc := [str(x[0]) for x in settings.CURRENCY_CHOICES]):
+        raise ValidationError(
+            _(f"Currency({c}) is not one of the permitted values: {cc}")
+        )

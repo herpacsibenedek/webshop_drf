@@ -31,28 +31,27 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django modules
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sites',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # rest_auth requirements
-    'django.contrib.sites',
+    # External apps
     'allauth',
     'allauth.account',
-    'rest_auth.registration',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    # Currency and exchange rates
+    'rest_auth.registration',
+    'django_extensions',
     'djmoney',
     'djmoney.contrib.exchange',
-    # project's apps
+    # Local apps
     'accounts',
     'products',
-    # other development extension
-    'django_extensions',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -181,7 +180,10 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.api.serializers.RegisterSerializer',
 }
 
+
 # Currency settings
+DEFAULT_CURRENCY = 'HUF'
+DEFAULT_CURRENCY_CODE_LENGTH = 3
 CURRENCIES = ('HUF', 'USD', 'EUR', 'GBP')
 CURRENCY_CHOICES = [
     ('HUF', 'HUF Ft'),

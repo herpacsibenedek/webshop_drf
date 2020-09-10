@@ -1,2 +1,11 @@
 *1. product.price not accepting 6.65 moneyfield
 2. product modified /created save mixin
+
+
+
+Ideas
++1. Proxy Model for AttributeProduct/AttributeVariant
++2. Proxy Model for ConnectedAttributeProduct/ConnectedAttributeVariant
+    - This requires rewrite whole product/productvariant models as well
+        - ProductVariant model same as Product, Product model has a field parent or main product which is a foreign key to self
++3. drf-writable-nested
