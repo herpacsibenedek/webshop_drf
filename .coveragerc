@@ -2,10 +2,11 @@
 [run]
 omit =
     # omit everything in a dir
-    /env/*
-    /htmlcov/*
-    /fixtures/*
-
+    */env/*
+    */htmlcov/*
+    */fixtures/*
+    */migrations/*
+    */tests/*
 
 [report]
 # Regexes for lines to exclude from consideration

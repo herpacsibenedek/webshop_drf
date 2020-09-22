@@ -1,9 +1,9 @@
 from decimal import Decimal
 from pprint import pprint
 
-
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from djmoney.money import Currency, Money
+from djmoney.money import Money
 from rest_framework import serializers
 
 from ..models import *
@@ -20,7 +20,10 @@ class AttributeValueSerializer(serializers.ModelSerializer):
 
 
 class AttributeSerializer(serializers.HyperlinkedModelSerializer):
-    values = AttributeValueSerializer(many=True)
+    values = AttributeValueSerializer(
+        many=True,
+        required=False
+    )
 
     class Meta:
         model = Attribute
@@ -40,7 +43,7 @@ class AttributeSerializer(serializers.HyperlinkedModelSerializer):
         )
 
         # Create each AttributeValue instance
-        for item in validated_data['values']:
+        for item in validated_data.get('values', []):
             AttributeValue.objects.create(
                 name=item['name'],
                 value=item['value'],
@@ -59,28 +62,35 @@ class AttributeSerializer(serializers.HyperlinkedModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.save()
 
-        # Delete any AttributeValue not included in the request
-        value_ids = [item.get('id') for item in validated_data['values']]
-        for value in instance.values.all():
-            if value.id not in value_ids:
-                value.delete()
+        # If there is no supplied values then do nothing with it
+        if validated_data.get('values'):
+            # Delete any AttributeValue not included in the request
+            value_ids = [item.get('id') for item in validated_data['values']]
+            for value in instance.values.all():
+                if value.id not in value_ids:
+                    value.delete()
 
-        # Create or update AttributeValue instances that are in the request
-        for item in validated_data['values']:
-            value = AttributeValue(
-                id=item.get('id'),
-                name=item['name'],
-                value=item['value'],
-                attribute=instance)
-            value.save()
+            # Create or update AttributeValue instances that are in the request
+            for item in validated_data['values']:
+                value = AttributeValue(
+                    id=item.get('id'),
+                    name=item['name'],
+                    value=item['value'],
+                    attribute=instance)
+                value.save()
 
         return instance
 
 
 class AttributeProductSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(
+    id = serializers.PrimaryKeyRelatedField(
+        queryset=AttributeProduct.objects.all(),
+        required=False
+    )
+    attribute_id = serializers.IntegerField(source='attribute.id')
+    title = serializers.CharField(
         source='attribute.name',
-        read_only=True,
+        required=False,
     )
     url = AttributeHIField(
         view_name='attribute-detail',
@@ -89,10 +99,14 @@ class AttributeProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AttributeProduct
-        fields = ['id', 'attribute', 'name', 'url']
+        fields = ['id', 'attribute_id', 'title', 'url']
 
 
 class AttributeVariantSerializer(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(
+        queryset=AttributeVariant.objects.all(),
+        required=False
+    )
     attribute_id = serializers.IntegerField(source='attribute.id')
     title = serializers.CharField(
         source='attribute.name',
@@ -105,17 +119,19 @@ class AttributeVariantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AttributeVariant
-        fields = ['attribute_id', 'title', 'url']
+        fields = ['id', 'attribute_id', 'title', 'url']
 
 
 class ProductTemplateSerializer(serializers.HyperlinkedModelSerializer):
     product_attributes = AttributeProductSerializer(
         source='attribute_product',
-        many=True
+        many=True,
+        required=False
     )
     variant_attributes = AttributeVariantSerializer(
         source='attribute_variant',
-        many=True
+        many=True,
+        required=False
     )
 
     class Meta:
@@ -139,20 +155,20 @@ class ProductTemplateSerializer(serializers.HyperlinkedModelSerializer):
         )
 
         # Create each AttributeProduct instance
-        for item in validated_data['attribute_product']:
-            AttributeProduct.objects.create(
-                # validation needed for Foreign key not exist error
-                attribute=item['attribute'],
-                product_template=template
-            )
+        if validated_data.get('attribute_product'):
+            for item in validated_data['attribute_product']:
+                AttributeProduct.objects.create(
+                    attribute=Attribute(item['attribute']['id']),
+                    product_template=template
+                )
 
         # Create each AttributeProduct instance
-        for item in validated_data['attribute_variant']:
-            AttributeVariant.objects.create(
-                # validation needed for Foreign key not exist error
-                attribute=item['attribute'],
-                product_template=template
-            )
+        if validated_data.get('attribute_variant'):
+            for item in validated_data['attribute_variant']:
+                AttributeVariant.objects.create(
+                    attribute=Attribute(item['attribute']['id']),
+                    product_template=template
+                )
 
         return template
 
@@ -167,7 +183,6 @@ class ProductTemplateSerializer(serializers.HyperlinkedModelSerializer):
 
         # Update the Attribute instance
         instance.name = validated_data.get('name', instance.name)
-        instance.slug = validated_data.get('slug', instance.slug)
         instance.save()
 
         # Update AttributeProduct
@@ -180,32 +195,55 @@ class ProductTemplateSerializer(serializers.HyperlinkedModelSerializer):
         self.update_attributes(instance, validated_data,
                                field_name="attribute_variant",
                                attr_model=AttributeVariant,
-                               attr_all=instance.attribute_variant.all()
-                               )
+                               attr_all=instance.attribute_variant.all())
 
         return instance
 
-    def update_attributes(self, instance, validated_data,
-                          field_name, attr_model, attr_all):
-        # Delete any AttributeProduct/AttributeVariant not included in the request
-        ap_ids = [item.get('id') for item in validated_data[field_name]]
-        for item in attr_all:
-            if item.id not in ap_ids:
-                item.delete()
+    def update_attributes(self, instance, validated_data, field_name, attr_model, attr_all):
+        if validated_data.get(field_name) is not None:
+            # 1. create a list of ids out of passed data
+            ids = [item['attribute']['id'] for item in validated_data[field_name]]
 
-        # Create or update AttributeProduct/AttributeVariant
-        # instances that are in the request
-        for item in validated_data[field_name]:
-            ap = attr_model(
-                id=item.get('id'),
-                # validation needed for Foreign key not exist error
-                attribute=item['attribute'],
-                product_template=instance
-            )
-            ap.save()
+            # 2. delete any association
+            # which is not included in passed data
+            for item in attr_all:
+                if item.attribute_id not in ids:
+                    item.delete()
 
-        # Return if there was an error
+            # 3. create or update all association
+            for item in validated_data[field_name]:
+                if item.get('id'):
+                    attr = attr_model(
+                        id=item.get('id').id,
+                        product_template=instance,
+                        attribute=Attribute(item['attribute']['id'])
+                    )
+                else:
+                    attr = attr_model(
+                        product_template=instance,
+                        attribute=Attribute(item['attribute']['id'])
+                    )
+                attr.save()
+
         return instance
+
+    def validate_product_attributes(self, data):
+        self.check_if_valid_attribute(data)
+        return data
+
+    def validate_variant_attributes(self, data):
+        self.check_if_valid_attribute(data)
+        return data
+
+    def check_if_valid_attribute(self, data):
+        for item in data:
+            if item.get('attribute'):
+                if not Attribute.objects.filter(
+                    id=item['attribute']['id']
+                ).exists():
+                    raise serializers.ValidationError(
+                        _("No attribute with given ID can be found")
+                    )
 
 
 class ConnectedProductAttributeSerializer(serializers.ModelSerializer):
@@ -239,7 +277,7 @@ class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
         queryset=Product.objects.all(),
         source='product.id',
         write_only=True,
-        required=False
+        required=False  # required for create only
     )
     variant_attributes = ConnectedVariantAttributeSerializer(
         source='attributes',
@@ -262,17 +300,15 @@ class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ProductVariant
         fields = ['id', 'name', 'slug', 'price_amount', 'price_currency',
-                  'active', 'created', 'modified', 'url', 'product', 'product_id', 'variant_attributes']
+                  'active', 'created', 'modified', 'url',
+                  'product', 'product_id', 'variant_attributes']
         read_only_fields = ['created', 'modified', 'product', 'slug']
         ordering = ['-id']
 
     def create(self, validated_data):
-        if validated_data.get('product'):
-            p = validated_data.get('product').get('id', validated_data.get('product'))
-
         variant = ProductVariant(
             name=validated_data['name'],
-            product=p,
+            product=validated_data['product']['id'],
             active=validated_data.get('active', False)
         )
         if validated_data['price'].get('amount'):
@@ -295,49 +331,65 @@ class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
     def update(self, instance, validated_data):
         """
         """
-
         instance.name = validated_data.get('name', instance.name)
         instance.active = validated_data.get('active', instance.active)
+
         if validated_data.get('price'):
             if validated_data['price'].get('amount'):
                 instance.price = Money(
-                    amount=validated_data['price'].get('amount', instance.price.amount),
+                    amount=validated_data['price']['amount'],
                     currency=validated_data.get('price_currency', instance.price_currency),
                 )
-        elif validated_data.get('price_currency'):
-            instance.price = Money(
-                amount=instance.price.amount,
-                currency=validated_data['price_currency'],
-            )
+            elif validated_data.get('price_currency'):
+                instance.price = Money(
+                    amount=instance.price.amount,
+                    currency=validated_data['price_currency'],
+                )
 
         instance.save()
 
-        # ConnectedVariantAttribute
-        # 1. create a list of ids out of passed data
-        attributes_ids = [item.get('id') for item in validated_data['attributes']]
+        if validated_data.get('attributes'):
+            # ConnectedVariantAttribute
+            # 1. create a list of ids out of passed data
+            attributes_ids = [item.get('id') for item in validated_data['attributes']]
 
-        # 2. delete any association
-        # which is not included in passed data
-        for attribute in instance.attributes.all():
-            if attribute.id not in attributes_ids:
-                attribute.delete()
+            # 2. delete any association
+            # which is not included in passed data
+            for attribute in instance.attributes.all():
+                if attribute.id not in attributes_ids:
+                    attribute.delete()
 
-        # 3. create or update all association
-        for item in validated_data['attributes']:
-            attribute = ConnectedVariantAttribute(
-                id=item.get('id'),
-                variant=instance,
-                connection=item['connection'],
-                value=item['value']
-            )
-            attribute.save()
+            # 3. create or update all association
+            for item in validated_data['attributes']:
+                attribute = ConnectedVariantAttribute(
+                    id=item.get('id'),
+                    variant=instance,
+                    connection=item['connection'],
+                    value=item['value']
+                )
+                attribute.save()
 
         return instance
 
+    def validate(self, data):
+        if not data.get('product'):
+            self.validate_product_id(data=None)
+
+        if self.instance:
+            pt_id = self.instance.product.product_template
+        else:
+            pt_id = data['product']['id'].product_template
+
+        # check correctness of ConnectedVariantAttribute
+        for attr in data.get('attributes', []):
+            if pt_id != attr['connection'].product_template:
+                raise serializers.ValidationError(_("ProductTemplate is not same."))
+            if attr['value'].attribute != attr['connection'].attribute:
+                raise serializers.ValidationError(_("Attribute is not same."))
+        return data
+
     def validate_price_currency(self, data):
-        if not data:
-            data = settings.DEFAULT_CURRENCY
-        if data not in (cc := [str(x[0]) for x in settings.CURRENCY_CHOICES]):
+        if data and data not in (cc := [str(x[0]) for x in settings.CURRENCY_CHOICES]):
             raise serializers.ValidationError(
                 _(f"Currency({data}) is not one of the permitted values: {', '.join(cc)}")
             )
@@ -345,14 +397,25 @@ class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
             return data
 
     def validate_price_amount(self, data):
-        if data < 0:
+        if data and data < 0:
             raise serializers.ValidationError(
                 _(f"Price cannot be negative")
             )
         return data
 
+    def validate_product_id(self, data):
+        if not data:
+            if not self.instance:
+                raise serializers.ValidationError(
+                    _(f"Name must be set.")
+                )
+        return data
+
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    name = serializers.CharField(
+        required=False
+    )
     product_template_id = serializers.PrimaryKeyRelatedField(
         queryset=ProductTemplate.objects.all(),
         source='product_template.id'
@@ -370,7 +433,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
     min_price_currency = serializers.CharField(
         required=False,
-        allow_blank=True,
+        allow_blank=True
     )
     min_price_amount = serializers.DecimalField(
         source='min_price.amount',
@@ -403,6 +466,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         product = Product(
             name=validated_data['name'],
             product_template=validated_data['product_template']['id'],
+            description=validated_data.get('description'),
             active=validated_data.get('active', False)
         )
         if validated_data['min_price'].get('amount'):
@@ -419,21 +483,22 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
                 connection=item['connection'],
                 value=item['value']
             )
-
-        # Create each Variant instance associated with it
-        for item in validated_data.get('variants', []):
-            variant = ProductVariant(
-                name=item['name'],
-                product=product,
-                active=item.get('active', False)
-            )
-            if item.get('price'):
-                if item['price'].get('amount'):
-                    variant.price = Money(
-                        amount=item['price'].get('amount', Decimal(0.0)),
-                        currency=item.get('price_currency', settings.DEFAULT_CURRENCY),
-                    )
-            variant.save()
+        # # Fully working, commented for make structure easier
+        # # by allowing variants created only at one location
+        # # Create each Variant instance associated with it
+        # for item in validated_data.get('variants', []):
+        #     variant = ProductVariant(
+        #         name=item['name'],
+        #         product=product,
+        #         active=item.get('active', False)
+        #     )
+        #     if item.get('price'):
+        #         if item['price'].get('amount'):
+        #             variant.price = Money(
+        #                 amount=item['price'].get('amount', Decimal(0.0)),
+        #                 currency=item.get('price_currency', settings.DEFAULT_CURRENCY),
+        #             )
+        #     variant.save()
 
         return product
 
@@ -447,6 +512,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
         # Update the Product instance
         instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
         instance.active = validated_data.get('active', instance.active)
         if validated_data.get('min_price'):
             if validated_data['min_price'].get('amount'):
@@ -454,67 +520,73 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
                     amount=validated_data['min_price'].get('amount', instance.min_price.amount),
                     currency=validated_data.get('min_price_currency', instance.min_price_currency),
                 )
-        elif validated_data.get('min_price_currency'):
-            instance.min_price = Money(
-                amount=instance.min_price.amount,
-                currency=validated_data['min_price_currency'],
-            )
+            elif validated_data.get('min_price_currency'):
+                instance.min_price = Money(
+                    amount=instance.min_price.amount,
+                    currency=validated_data['min_price_currency'],
+                )
         instance.save()
 
-        # ConnectedProductAttribute
-        # 1. create a list of ids out of passed data
-        attributes_ids = [item.get('id') for item in validated_data['attributes']]
+        if validated_data.get('attributes'):
+            # ConnectedProductAttribute
+            # 1. create a list of ids out of passed data
+            attributes_ids = [item.get('id') for item in validated_data['attributes']]
 
-        # 2. delete any association
-        # which is not included in passed data
-        for attribute in instance.attributes.all():
-            if attribute.id not in attributes_ids:
-                attribute.delete()
+            # 2. delete any association
+            # which is not included in passed data
+            for attribute in instance.attributes.all():
+                if attribute.id not in attributes_ids:
+                    attribute.delete()
 
-        # 3. create or update all association
-        for item in validated_data['attributes']:
-            attribute = ConnectedProductAttribute(
-                id=item.get('id'),
-                product=instance,
-                connection=item['connection'],
-                value=item['value']
-            )
-            attribute.save()
-
-        # ProductVariant
-        # 1. create a list of ids out of passed data
-        variants_ids = [item.get('id') for item in validated_data['variants']]
-
-        # 2. delete any association
-        # which is not included in passed data
-        for variant in instance.variants.all():
-            if variant.id not in variants_ids:
-                variant.delete()
-
-        # 3. create or update all association
-        for item in validated_data['variants']:
-            variant = ProductVariant(
-                id=item.get('id'),
-                name=item['name'],
-                product=instance,
-                active=item.get('active', False)
-            )
-            if item.get('price'):
-                if item['price'].get('amount'):
-                    variant.price = Money(
-                        amount=item['price']['amount'],
-                        currency=item.get('price_currency', settings.DEFAULT_CURRENCY),
-                    )
-            elif item.get('price_currency'):
-                variant.price = Money(
-                    amount=variant.price.amount,
-                    currency=item['price_currency'],
+            # 3. create or update all association
+            for item in validated_data['attributes']:
+                attribute = ConnectedProductAttribute(
+                    id=item.get('id'),
+                    product=instance,
+                    connection=item['connection'],
+                    value=item['value']
                 )
-            variant.save()
+                attribute.save()
+
+        # # Fully working, see above at create
+        # # ProductVariant
+        # # 1. create a list of ids out of passed data
+        # variants_ids = [item.get('id') for item in validated_data['variants']]
+
+        # # 2. delete any association
+        # # which is not included in passed data
+        # for variant in instance.variants.all():
+        #     if variant.id not in variants_ids:
+        #         variant.delete()
+
+        # # 3. create or update all association
+        # for item in validated_data['variants']:
+        #     variant = ProductVariant(
+        #         id=item.get('id'),
+        #         name=item['name'],
+        #         product=instance,
+        #         active=item.get('active', False)
+        #     )
+        #     if item.get('price'):
+        #         if item['price'].get('amount'):
+        #             variant.price = Money(
+        #                 amount=item['price']['amount'],
+        #                 currency=item.get('price_currency', settings.DEFAULT_CURRENCY),
+        #             )
+        #     elif item.get('price_currency'):
+        #         variant.price = Money(
+        #             amount=variant.price.amount,
+        #             currency=item['price_currency'],
+        #         )
+        #     variant.save()
 
         return instance
 
     def validate(self, data):
+        # Check if name set if not run validator
+        if not data.get('name'):
+            self.validate_name(data=None)
+
         # check correctness of ConnectedProductAttribute
         for attr in data.get('attributes', []):
             if data['product_template']['id'] != attr['connection'].product_template:
@@ -534,8 +606,18 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
             return data
 
     def validate_min_price_amount(self, data):
-        if data < 0:
+        if data and data < 0:
             raise serializers.ValidationError(
                 _(f"Price cannot be negative")
             )
+        return data
+
+    def validate_name(self, data):
+        if not data:
+            if self.instance:
+                data = self.instance.name
+            else:
+                raise serializers.ValidationError(
+                    _(f"Name must be set.")
+                )
         return data

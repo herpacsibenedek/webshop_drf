@@ -9,7 +9,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from djmoney.models.fields import MoneyField, CurrencyField
+from djmoney.models.fields import MoneyField
 from djmoney.models.validators import MinMoneyValidator
 from webshop_drf.utils import unique_random_string_generator
 
@@ -36,7 +36,7 @@ class Product(models.Model):
     """
     name = models.CharField(max_length=255)
     slug = models.SlugField(blank=True, unique=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
 
     product_template = models.ForeignKey(
         ProductTemplate,
@@ -89,7 +89,7 @@ class ProductVariant(models.Model):
     price = MoneyField(
         max_digits=19,
         decimal_places=4,
-        null=True,
+        default=0,
         default_currency=settings.DEFAULT_CURRENCY,
         currency_choices=settings.CURRENCY_CHOICES,
         currency_max_length=settings.DEFAULT_CURRENCY_CODE_LENGTH,

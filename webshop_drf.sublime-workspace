@@ -4,12 +4,152 @@
 		"selected_items":
 		[
 			[
-				"pri",
-				"price"
+				"asser",
+				"assertEqual"
+			],
+			[
+				"variant",
+				"variant_create"
 			],
 			[
 				"price",
-				"price_currency"
+				"min_price_amount"
+			],
+			[
+				"Prod",
+				"Product"
+			],
+			[
+				"assert",
+				"assertEqual"
+			],
+			[
+				"product",
+				"product_id"
+			],
+			[
+				"pr",
+				"Product"
+			],
+			[
+				"validate_product",
+				"validate_product_id"
+			],
+			[
+				"va",
+				"validate"
+			],
+			[
+				"validate",
+				"validated_data"
+			],
+			[
+				"name",
+				"name"
+			],
+			[
+				"conne",
+				"ConnectedProductAttribute"
+			],
+			[
+				"origina",
+				"original_ids"
+			],
+			[
+				"Conne",
+				"ConnectedProductAttribute"
+			],
+			[
+				"D",
+				"DEFAULT_CURRENCY"
+			],
+			[
+				"min",
+				"min_price"
+			],
+			[
+				"seriali",
+				"serializer"
+			],
+			[
+				"seri",
+				"serializer"
+			],
+			[
+				"pro",
+				"product_template"
+			],
+			[
+				"Produc",
+				"Product"
+			],
+			[
+				"Co",
+				"ConnectedProductAttribute"
+			],
+			[
+				"product_",
+				"product_template"
+			],
+			[
+				"prod",
+				"product_template"
+			],
+			[
+				"a",
+				"attr1"
+			],
+			[
+				"Att",
+				"Attribute"
+			],
+			[
+				"o",
+				"objects"
+			],
+			[
+				"attr",
+				"attr_model"
+			],
+			[
+				"data",
+				"validated_data"
+			],
+			[
+				"s",
+				"serializer"
+			],
+			[
+				"At",
+				"Attribute"
+			],
+			[
+				"original",
+				"original_id"
+			],
+			[
+				"origian",
+				"original_id"
+			],
+			[
+				"value",
+				"values"
+			],
+			[
+				"Attr",
+				"Attribute"
+			],
+			[
+				"ass",
+				"assertTrue"
+			],
+			[
+				"Dec",
+				"Decimal"
+			],
+			[
+				"pri",
+				"price"
 			],
 			[
 				"Currency",
@@ -24,28 +164,8 @@
 				"MinValueValidator"
 			],
 			[
-				"Dec",
-				"DecimalField"
-			],
-			[
 				"Test",
 				"TestCase"
-			],
-			[
-				"a",
-				"a"
-			],
-			[
-				"Attr",
-				"Attribute"
-			],
-			[
-				"prod",
-				"products"
-			],
-			[
-				"pr",
-				"products"
 			],
 			[
 				"template",
@@ -60,24 +180,12 @@
 				"product"
 			],
 			[
-				"attr",
-				"attribute"
-			],
-			[
 				"vaid",
 				"validated_data"
 			],
 			[
 				"valida",
 				"validated_data"
-			],
-			[
-				"product",
-				"product_template_id"
-			],
-			[
-				"va",
-				"variant"
 			],
 			[
 				"T",
@@ -92,20 +200,12 @@
 				"validated_data"
 			],
 			[
-				"Att",
-				"AttributeProduct"
-			],
-			[
 				"Pri",
 				"print"
 			],
 			[
 				"c",
 				"connection"
-			],
-			[
-				"Produc",
-				"ProductTemplate"
 			],
 			[
 				"re",
@@ -118,10 +218,6 @@
 			[
 				"f",
 				"fields"
-			],
-			[
-				"s",
-				"slug"
 			],
 			[
 				"se",
@@ -224,10 +320,40 @@
 	"buffers":
 	[
 		{
+			"file": "products/api/tests/test_serializers.py",
+			"settings":
+			{
+				"buffer_size": 36930,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Bugs\nDONE 1. product.price not accepting 6.65 moneyfield\n\n\n\nTo be Done:\n    - Tags model\n    - Category model\n    - Cart Model\n        - Order Model\n        - Address Model\n        - Billing Profile Model\n\n\n\nIdeas\n+ Proxy Model for AttributeProduct/AttributeVariant\n+ Proxy Model for ConnectedAttributeProduct/ConnectedAttributeVariant\n    - This requires rewrite whole product/productvariant models as well\n        - ProductVariant model same as Product, Product model has a field parent or main product which is a foreign key to self\n+ drf-writable-nested\n+ Nested serializer user its own create and update\n+ product modified /created save mixin DRY\n+ make serializers' foreign keys accepts int as id or instance which ever set\n\n\n\nTesting:\n1 Test for slug not set\n2 and unchanged\n    -> maybe set model for editable:false\n\n*3 Test fields for Blank?, None?, and not set(missing)\n    - st model level test\n+4 check status codes and exact valoidataion error\n",
+			"file": "todo.txt",
+			"file_size": 965,
+			"file_write_time": 132449908733291767,
+			"settings":
+			{
+				"buffer_size": 957,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "products/models.py",
+			"settings":
+			{
+				"buffer_size": 7851,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "products/api/serializers.py",
 			"settings":
 			{
-				"buffer_size": 15357,
+				"buffer_size": 21446,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -271,34 +397,54 @@
 	[
 		"/E/p/webshop_drf",
 		"/E/p/webshop_drf/products",
-		"/E/p/webshop_drf/products/migrations"
+		"/E/p/webshop_drf/products/migrations",
+		"/E/p/webshop_drf/products/tests"
 	],
 	"file_history":
 	[
+		"/C/Users/Benedek/algorithms/README.md",
+		"/E/p/GIT/algorithms/README.md",
+		"/E/p/webshop_drf/products/migrations/0006_auto_20200916_1802.py",
+		"/E/p/webshop_drf/products/migrations/0005_auto_20200910_1304.py",
+		"/E/p/webshop_drf/products/migrations/0004_auto_20200908_1341.py",
+		"/E/p/webshop_drf/products/tests/test_models.py",
 		"/E/p/webshop_drf/products/models.py",
+		"/E/p/webshop_drf/products/api/serializers.py",
+		"/E/p/webshop_drf/products/api/tests/test_api_views.py",
+		"/E/p/webshop_drf/env/Lib/site-packages/rest_framework/test.py",
+		"/E/p/webshop_drf/env/Lib/site-packages/rest_framework/serializers.py",
+		"/E/p/models.py",
+		"/E/p/webshop_drf/webshop_drf/settings.py",
+		"/E/p/webshop_drf/.coveragerc",
+		"/E/p/webshop_drf/products/tests/__init__.py",
+		"/E/p/webshop_drf/products/tests/test_serializers.py",
+		"/E/p/webshop_drf/products/api/urls.py",
+		"/E/p/webshop_drf/manage.py",
+		"/E/p/test_serializers.py",
+		"/E/p/webshop_drf/.gitignore",
+		"/E/p/webshop_drf/.coverage",
+		"/E/p/webshop_drf/env/Lib/site-packages/rest_framework/mixins.py",
+		"/C/Users/Benedek/Downloads/data.json",
+		"/C/Users/Benedek/Downloads/typing-data.json",
+		"/E/p/webshop_drf/env/Lib/site-packages/rest_framework/viewsets.py",
+		"/E/p/webshop_drf/todo.txt",
+		"/E/p/webshop_drf/env/Lib/site-packages/djmoney/utils.py",
+		"/E/p/webshop_drf/env/Lib/site-packages/djmoney/serializers.py",
+		"/E/p/webshop_drf/env/Lib/site-packages/djmoney/money.py",
 		"/E/p/webshop_drf/env/Lib/site-packages/djmoney/models/validators.py",
 		"/E/p/webshop_drf/env/Lib/site-packages/moneyed/classes.py",
-		"/E/p/webshop_drf/todo.txt",
 		"/E/p/webshop_drf/products/migrations/0003_auto_20200908_1142.py",
-		"/E/p/webshop_drf/products/migrations/0004_auto_20200908_1341.py",
-		"/E/p/webshop_drf/webshop_drf/settings.py",
-		"/E/p/webshop_drf/products/api/serializers.py",
 		"/E/p/webshop_drf/products/migrations/0004_auto_20200908_1313.py",
 		"/E/p/webshop_drf/products/validators.py",
 		"/E/p/webshop_drf/products/managers.py",
-		"/E/p/webshop_drf/products/tests/test_models.py",
 		"/E/p/webshop_drf/env/Lib/site-packages/moneyed/test_moneyed_classes.py",
 		"/E/p/webshop_drf/products/__init__.py",
-		"/E/p/webshop_drf/.coveragerc",
-		"/E/p/webshop_drf/.gitignore",
-		"/E/p/webshop_drf/.coverage",
 		"/E/p/webshop_drf/accounts/tests/test_managers.py",
 		"/E/p/webshop_drf/accounts/tests/test_models.py",
 		"/E/p/webshop_drf/env/Lib/site-packages/pytz/exceptions.py",
 		"/E/p/webshop_drf/webshop_drf/urls.py",
 		"/E/p/webshop_drf/products/api/views.py",
 		"/E/p/webshop_drf/webshop_drf/utils.py",
-		"/E/p/webshop_drf/products/api/urls.py",
 		"/E/p/webshop_drf/accounts/api/urls.py",
 		"/E/p/webshop_drf/accounts/migrations/0001_initial.py",
 		"/E/p/webshop_drf/accounts/models.py",
@@ -381,38 +527,20 @@
 		"/C/Users/Benedek/Downloads/startbootstrap-one-page-wonder-gh-pages/startbootstrap-one-page-wonder-gh-pages/form.html",
 		"/E/p/asd.py",
 		"/E/p/zsofiesbeni/index.html",
-		"/E/p/models.py",
 		"/F/dettiszülinapivideo/MOV01C.MOD",
 		"/E/p/webshop_drf/accounts/managers.py",
-		"/E/p/webshop_drf/requirements.txt",
-		"/E/p/webshop_drf/accounts/forms.py",
-		"/E/p/webshop_drf/accounts/apps.py",
-		"/E/p/webshop_drf/accounts/urls.py",
-		"/E/p/webshop_drf/accounts/api/__init__.py",
-		"/E/p/webshop_drf/accounts/tests/test_views.py",
-		"/E/p/webshop_drf/accounts/tests/__init__.py",
-		"/E/p/webshop_drf/accounts/serializers.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/urls.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/views.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/serializers.py",
-		"/E/p/webshop_drf/accounts/migrations/0003_auto_20200721_1338.py",
-		"/E/p/webshop_drf/accounts/migrations/0002_auto_20200717_1135.py",
-		"/E/p/webshop_drf/db.sqlite3",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/registration/urls.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/registration/views.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_auth/registration/serializers.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/rest_framework/serializers.py",
-		"/E/p/webshop_drf/env/Lib/site-packages/allauth/account/utils.py"
+		"/E/p/webshop_drf/requirements.txt"
 	],
 	"find":
 	{
-		"height": 43.2
+		"height": 44.0
 	},
 	"find_in_files":
 	{
 		"height": 114.4,
 		"where_history":
 		[
+			"<project>\\env\\Lib\\site-packages\\djmoney\\"
 		]
 	},
 	"find_state":
@@ -420,6 +548,22 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"variant_create",
+			"        data = deepcopy(self.data)",
+			"        data = deepcopy(self.data)\n",
+			"\n        data = deepcopy(self.data)\n",
+			")\n",
+			"print",
+			"attribute_product",
+			"check_update_validity(da",
+			"serializer_context",
+			"{\n                    \"name\": \"39\",\n                    \"value\": \"39\"\n                },",
+			"speed\":2",
+			"Update",
+			"instance",
+			"validated_data",
+			"str(amount)",
+			"PRINT",
 			"CurrencyField",
 			"slug",
 			"variant",
@@ -461,6 +605,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"variant_serialize",
+			"",
+			"self.check_update_validity(da",
+			"variant",
+			"iem",
+			"print",
 			"attribute",
 			"pv",
 			"item",
@@ -496,24 +646,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "products/api/serializers.py",
+					"file": "products/api/tests/test_serializers.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15357,
+						"buffer_size": 36930,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8018,
-								8018
+								5210,
+								5208
 							]
 						],
 						"settings":
@@ -525,24 +675,24 @@
 								{
 									"1":
 									[
-										8018,
-										8019
+										5209,
+										5210
 									]
 								},
 								"icon":
 								{
 									"1":
 									[
-										"Packages/BracketHighlighter/icons/single_quote.png",
-										"region.greenish"
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"region.purplish"
 									]
 								},
 								"open":
 								{
 									"1":
 									[
-										8012,
-										8013
+										5172,
+										5173
 									]
 								},
 								"unmatched":
@@ -551,11 +701,259 @@
 							},
 							"bracket_highlighter.regions":
 							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"open_with_edit": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2824.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "todo.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 957,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								905,
+								905
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "products/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7851,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1670,
+								1670
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										1669,
+										1670
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/square_bracket.png",
+										"region.bluish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										1625,
+										1626
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
@@ -566,31 +964,115 @@
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
-								"bh_angle_content",
+								"bh_angle_content"
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1205.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "products/api/serializers.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21446,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13392,
+								13392
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
@@ -612,10 +1094,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4500.0,
+						"translation.y": 1827.2,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -638,11 +1120,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.489921121823,
 			1.0
 		],
 		"rows":
@@ -664,7 +1153,7 @@
 	"project": "",
 	"replace":
 	{
-		"height": 79.0
+		"height": 79.2
 	},
 	"save_all_on_build": true,
 	"select_file":

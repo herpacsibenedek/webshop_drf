@@ -2,6 +2,8 @@ from time import sleep
 
 from django.test import TestCase
 from django.utils import timezone
+from djmoney.money import Money
+
 from ..models import *
 
 
@@ -38,7 +40,7 @@ class ProductTest(TestCase):
             name="Shipyard's American Pale Ale",
             description="An easy drinking hoppy ale.",
             product_template=pt,
-            price=1200
+            min_price=Money(1200, 'HUF')
         )
         self.now_after = timezone.now()
 
@@ -53,7 +55,7 @@ class ProductTest(TestCase):
     def test_created(self):
         p = Product.objects.get(name="Shipyard's American Pale Ale")
         self.assertTrue(self.now_before <= p.created)
-        self.assertTrue(self.now_before >= p.created)
+        self.assertTrue(p.created <= self.now_after)
 
     def test_created_not_change(self):
         p = Product.objects.get(name="Shipyard's American Pale Ale")
@@ -65,7 +67,7 @@ class ProductTest(TestCase):
     def test_modified(self):
         p = Product.objects.get(name="Shipyard's American Pale Ale")
         self.assertTrue(self.now_before <= p.modified)
-        self.assertTrue(self.now_before >= p.modified)
+        self.assertTrue(p.modified <= self.now_after)
 
     def test_modified_changed(self):
         p = Product.objects.get(name="Shipyard's American Pale Ale")
@@ -88,7 +90,7 @@ class ProductVariantTest(TestCase):
             name="Shipyard's American Pale Ale",
             description="An easy drinking hoppy ale.",
             product_template=pt,
-            price=1200
+            min_price=Money(1200, 'USD')
         )
         self.now_before = timezone.now()
         ProductVariant.objects.create(
@@ -117,7 +119,7 @@ class ProductVariantTest(TestCase):
             name="Shipyard's American Pale Ale - 330ml"
         )
         self.assertTrue(self.now_before <= p.created)
-        self.assertTrue(self.now_before >= p.created)
+        self.assertTrue(p.created <= self.now_after)
 
     def test_created_not_change(self):
         p = ProductVariant.objects.get(
@@ -133,7 +135,7 @@ class ProductVariantTest(TestCase):
             name="Shipyard's American Pale Ale - 330ml"
         )
         self.assertTrue(self.now_before <= p.modified)
-        self.assertTrue(self.now_before >= p.modified)
+        self.assertTrue(p.modified <= self.now_after)
 
     def test_modified_changed(self):
         p = ProductVariant.objects.get(
