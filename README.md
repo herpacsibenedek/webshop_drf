@@ -25,7 +25,7 @@ Ideas
 
 Testing: Way to go for 100%
 1 Test for slug not set
-2 and unchanged
+    and unchanged
     -> maybe set model for editable:false
 
 *3 Test fields for Blank?, None?, and not set(missing)
