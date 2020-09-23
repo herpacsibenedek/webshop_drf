@@ -1,13 +1,13 @@
 Work in Progress
 
 To be Done:
-    - Tags model
-    - Category model
-    - Cart Model
-        - Order Model
-        - Address Model
-        - Billing Profile Model
-    - Shopfront/Catalog model
++    - Tags model
++    - Category model
++    - Cart Model
++        - Order Model
++        - Address Model
++        - Billing Profile Model
++    - Shopfront/Catalog model
 
 
 
