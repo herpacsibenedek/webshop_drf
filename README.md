@@ -4,10 +4,10 @@ To be Done:
 + Tags model
 + Category model
 + Cart Model
-+ - Order Model
-+ - Address Model
-+ - Billing Profile Model
-+ - - Shopfront/Catalog model
++ Order Model
++ Address Model
++ Billing Profile Model
+    - Shopfront/Catalog model
 
 
 
@@ -24,11 +24,11 @@ Ideas
 
 
 Testing: Way to go for 100%
-1 Test for slug not set
-    and unchanged
-    -> maybe set model for editable:false
++ Test for slug
+    - not set or unchanged
+    - maybe set model for editable:false
 
-*3 Test fields for Blank?, None?, and not set(missing)
-    - st model level test
-+4 check status codes and exact valoidataion error
++ Test fields for Blank?, None?, and not set(missing)
+    -  model level test
++ check status codes and exact valoidataion error
 
