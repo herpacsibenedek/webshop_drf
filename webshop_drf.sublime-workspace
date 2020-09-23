@@ -4,24 +4,52 @@
 		"selected_items":
 		[
 			[
+				"C",
+				"ConnectedVariantAttribute"
+			],
+			[
+				"assert",
+				"assertTrue"
+			],
+			[
+				"variant",
+				"variant_update"
+			],
+			[
+				"Prod",
+				"ProductTemplate"
+			],
+			[
+				"attr",
+				"attr3"
+			],
+			[
+				"setup",
+				"setup_attributes"
+			],
+			[
+				"data",
+				"data"
+			],
+			[
+				"set",
+				"setup_price"
+			],
+			[
+				"Product",
+				"ProductVariant"
+			],
+			[
+				"Pr",
+				"ProductTemplate"
+			],
+			[
 				"asser",
 				"assertEqual"
 			],
 			[
-				"variant",
-				"variant_create"
-			],
-			[
 				"price",
 				"min_price_amount"
-			],
-			[
-				"Prod",
-				"Product"
-			],
-			[
-				"assert",
-				"assertEqual"
 			],
 			[
 				"product",
@@ -108,14 +136,6 @@
 				"objects"
 			],
 			[
-				"attr",
-				"attr_model"
-			],
-			[
-				"data",
-				"validated_data"
-			],
-			[
 				"s",
 				"serializer"
 			],
@@ -156,10 +176,6 @@
 				"CurrencyField"
 			],
 			[
-				"C",
-				"CurrencyField"
-			],
-			[
 				"Min",
 				"MinValueValidator"
 			],
@@ -170,10 +186,6 @@
 			[
 				"template",
 				"product_template"
-			],
-			[
-				"Product",
-				"ProductVariant"
 			],
 			[
 				"produc",
@@ -320,22 +332,10 @@
 	"buffers":
 	[
 		{
-			"file": "products/api/tests/test_serializers.py",
-			"settings":
-			{
-				"buffer_size": 36930,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Bugs\nDONE 1. product.price not accepting 6.65 moneyfield\n\n\n\nTo be Done:\n    - Tags model\n    - Category model\n    - Cart Model\n        - Order Model\n        - Address Model\n        - Billing Profile Model\n\n\n\nIdeas\n+ Proxy Model for AttributeProduct/AttributeVariant\n+ Proxy Model for ConnectedAttributeProduct/ConnectedAttributeVariant\n    - This requires rewrite whole product/productvariant models as well\n        - ProductVariant model same as Product, Product model has a field parent or main product which is a foreign key to self\n+ drf-writable-nested\n+ Nested serializer user its own create and update\n+ product modified /created save mixin DRY\n+ make serializers' foreign keys accepts int as id or instance which ever set\n\n\n\nTesting:\n1 Test for slug not set\n2 and unchanged\n    -> maybe set model for editable:false\n\n*3 Test fields for Blank?, None?, and not set(missing)\n    - st model level test\n+4 check status codes and exact valoidataion error\n",
 			"file": "todo.txt",
-			"file_size": 965,
-			"file_write_time": 132449908733291767,
 			"settings":
 			{
-				"buffer_size": 957,
+				"buffer_size": 976,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -353,7 +353,7 @@
 			"file": "products/api/serializers.py",
 			"settings":
 			{
-				"buffer_size": 21446,
+				"buffer_size": 21806,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -402,6 +402,7 @@
 	],
 	"file_history":
 	[
+		"/E/p/webshop_drf/products/api/tests/test_serializers.py",
 		"/C/Users/Benedek/algorithms/README.md",
 		"/E/p/GIT/algorithms/README.md",
 		"/E/p/webshop_drf/products/migrations/0006_auto_20200916_1802.py",
@@ -528,12 +529,11 @@
 		"/E/p/asd.py",
 		"/E/p/zsofiesbeni/index.html",
 		"/F/dettiszülinapivideo/MOV01C.MOD",
-		"/E/p/webshop_drf/accounts/managers.py",
-		"/E/p/webshop_drf/requirements.txt"
+		"/E/p/webshop_drf/accounts/managers.py"
 	],
 	"find":
 	{
-		"height": 44.0
+		"height": 43.0
 	},
 	"find_in_files":
 	{
@@ -548,6 +548,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"variant_serialize",
+			"_serialize_",
+			"ppr",
+			")\n",
 			"variant_create",
 			"        data = deepcopy(self.data)",
 			"        data = deepcopy(self.data)\n",
@@ -605,6 +609,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"variant_create",
+			"_create_",
+			"_",
 			"variant_serialize",
 			"",
 			"self.check_update_validity(da",
@@ -646,24 +653,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "products/api/tests/test_serializers.py",
+					"file": "todo.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 36930,
+						"buffer_size": 976,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5210,
-								5208
+								760,
+								760
 							]
 						],
 						"settings":
@@ -673,27 +680,12 @@
 							{
 								"close":
 								{
-									"1":
-									[
-										5209,
-										5210
-									]
 								},
 								"icon":
 								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/curly_bracket.png",
-										"region.purplish"
-									]
 								},
 								"open":
 								{
-									"1":
-									[
-										5172,
-										5173
-									]
 								},
 								"unmatched":
 								{
@@ -701,166 +693,61 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
 								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"open_with_edit": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2824.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "todo.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 957,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								905,
-								905
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
+								"bh_default_content"
 							],
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
@@ -878,7 +765,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "products/models.py",
 					"semi_transient": false,
 					"settings":
@@ -890,8 +777,8 @@
 						"selection":
 						[
 							[
-								1670,
-								1670
+								6628,
+								6628
 							]
 						],
 						"settings":
@@ -903,24 +790,24 @@
 								{
 									"1":
 									[
-										1669,
-										1670
+										6627,
+										6628
 									]
 								},
 								"icon":
 								{
 									"1":
 									[
-										"Packages/BracketHighlighter/icons/square_bracket.png",
-										"region.bluish"
+										"Packages/BracketHighlighter/icons/round_bracket.png",
+										"region.yellowish"
 									]
 								},
 								"open":
 								{
 									"1":
 									[
-										1625,
-										1626
+										6529,
+										6530
 									]
 								},
 								"unmatched":
@@ -929,16 +816,31 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
@@ -949,11 +851,6 @@
 								"bh_tag_open",
 								"bh_tag_close",
 								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
@@ -969,48 +866,38 @@
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_default_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
+								"bh_default_content"
 							],
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1205.0,
+						"translation.y": 944.8,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "products/api/serializers.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21446,
+						"buffer_size": 21806,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13392,
-								13392
+								12733,
+								12733
 							]
 						],
 						"settings":
@@ -1033,51 +920,31 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
 								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
@@ -1087,17 +954,37 @@
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_tag_content"
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
 							],
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1827.2,
+						"translation.y": 2100.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1131,7 +1018,7 @@
 		"cols":
 		[
 			0.0,
-			0.489921121823,
+			0.579316389132,
 			1.0
 		],
 		"rows":

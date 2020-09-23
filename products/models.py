@@ -219,6 +219,8 @@ class AbstractConnectedAttribute(models.Model):
 
 class ConnectedProductAttribute(AbstractConnectedAttribute):
     """
+    Junction model which stores a value
+    connected to a Product
     """
     product = models.ForeignKey(
         Product,
@@ -238,6 +240,8 @@ class ConnectedProductAttribute(AbstractConnectedAttribute):
 
 class ConnectedVariantAttribute(AbstractConnectedAttribute):
     """
+    Junction model which stores a value
+    connected to a Variant
     """
     variant = models.ForeignKey(
         ProductVariant,

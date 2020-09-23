@@ -17,7 +17,9 @@ from products.api.serializers import *
 class AttributeSerializerCreateTest(APITestCase):
 
     def test_attribute_create(self):
-        """Test attribute creation"""
+        """
+        Test Attribute create
+        """
         data = {
             "name": "Shoe Size"
         }
@@ -110,6 +112,9 @@ class AttributeSerializerUpdateTest(APITestCase):
     def check_update_validity(self, data, original_id=True):
         """
         Check given data is valid and has right values
+
+        Original_id is checks if all of data have been
+        associated with previously
         """
 
         serializer2 = AttributeSerializer(
@@ -223,7 +228,7 @@ class ProductTemplateSerializerCreateTest(APITestCase):
     def test_template_create_with_attr_variant_invalid(self):
         """
         Test product template creation,
-        invalid variant product id
+        invalid attribute id
         """
         data = {
             "name": "Beer",
@@ -278,6 +283,10 @@ class ProductTemplateSerializerUpdateTest(APITestCase):
         self.data = serializer.data
 
     def test_template_update_name(self):
+        """
+        Test ProductTemplate update
+        name
+        """
         data = {
             "name": "Wine"
         }
@@ -288,21 +297,37 @@ class ProductTemplateSerializerUpdateTest(APITestCase):
         self.assertEqual(self.pt.name, data["name"])
 
     def test_template_update_attr_product_delete(self):
+        """
+        Test ProductTemplate update
+        delete a product attribute
+        """
 
         del self.data['product_attributes'][0]
         self.check_update_product_validity(data=self.data)
 
     def test_template_update_attr_product_add(self):
+        """
+        Test ProductTemplate update
+        aad a product attribute
+        """
 
         self.data['product_attributes'].append({"attribute_id": 1})
         self.check_update_product_validity(data=self.data, original_id=False)
 
     def test_template_update_attr_variant_delete(self):
+        """
+        Test ProductTemplate update
+        delete a variant attribute
+        """
 
         del self.data['variant_attributes'][0]
         self.check_update_variant_validity(data=self.data)
 
     def test_template_update_attr_variant_add(self):
+        """
+        Test ProductTemplate update
+        add a variant attribute
+        """
 
         self.data['variant_attributes'].append({"attribute_id": 1})
         self.check_update_variant_validity(data=self.data, original_id=False)
@@ -406,7 +431,9 @@ class ProductSerializerCreateTest(APITestCase):
         )
 
     def test_product_create(self):
-        """Test attribute creation"""
+        """
+        Test Product create and test for its defaults
+        """
         serializer = ProductSerializer(data=self.data)
         self.assertTrue(serializer.is_valid(), serializer.errors)
         serializer.save()
@@ -421,7 +448,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertEqual(p.min_price_currency, settings.DEFAULT_CURRENCY)
 
     def test_product_create_invalid_name_blank(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        empty name
+        """
         self.data.update({
             "name": ''
         })
@@ -430,7 +460,11 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_invalid_name_none(self):
-        """Test attribute creation"""
+
+        """
+        Test Product create with
+        name without value
+        """
         self.data.update({
             "name": None
         })
@@ -439,14 +473,20 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_invalid_name_nmissing(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        no name given
+        """
         del self.data['name']
 
         serializer = ProductSerializer(data=self.data)
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_invalid_template_id(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        non existent product template id
+        """
         self.data.update({
             "product_template_id": 3
         })
@@ -455,7 +495,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_invalid_template_None(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        None value product template id
+        """
         self.data.update({
             "product_template_id": None
         })
@@ -464,7 +507,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_description(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        given description
+        """
         self.data.update({
             "description": "Light easy-drinking beer from Mexico"
         })
@@ -476,7 +522,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertEqual(p.description, self.data['description'])
 
     def test_product_create_active(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        given active
+        """
         self.data.update({
             "active": True
         })
@@ -488,7 +537,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertTrue(p.active)
 
     def test_product_create_price_amount(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        min price given
+        """
         self.data.update({
             "min_price_amount": 10.15
         })
@@ -503,8 +555,11 @@ class ProductSerializerCreateTest(APITestCase):
         )
         self.assertEqual(p.min_price, m)
 
-    def test_product_create_price_amount_invalid(self):
-        """Test attribute creation"""
+    def test_product_create_price_amount_negative(self):
+        """
+        Test Product create with
+        negative min price given
+        """
         self.data.update({
             "min_price_amount": -10
         })
@@ -513,6 +568,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_price_currency(self):
+        """
+        Test Product create with
+        both min price and price currency
+        """
         self.data.update({
             "min_price_amount": 11.11,
             "min_price_currency": 'USD'
@@ -529,6 +588,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertEqual(p.min_price, m)
 
     def test_product_create_price_currency_blank(self):
+        """
+        Test Product create with
+        both min price and blank price currency
+        """
         self.data.update({
             "min_price_amount": 11.11,
             "min_price_currency": ''
@@ -545,7 +608,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertEqual(p.min_price, m)
 
     def test_product_create_price_currency_invalid(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        invalid currency code given
+        """
         self.data.update({
             "min_price_amount": 11.11,
             "min_price_currency": 'ASD'
@@ -555,6 +621,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_price_currency_invalid_none(self):
+        """
+        Test Product create with
+        min price and None value currency
+        """
         self.data.update({
             "min_price_amount": 11.11,
             "min_price_currency": None
@@ -564,7 +634,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_attribute(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product attribute given
+        """
         self.setup_attributes()
         self.data.update({
             "product_attributes": [{
@@ -597,7 +670,11 @@ class ProductSerializerCreateTest(APITestCase):
         )
 
     def test_product_create_attribute_missing_value(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product attribute given but
+        no value
+        """
         self.setup_attributes()
         self.data.update({
             "product_attributes": [{
@@ -609,7 +686,11 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_attribute_missing_connection(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product attribute given but
+        no connection
+        """
         self.setup_attributes()
         self.data.update({
             "product_attributes": [{
@@ -621,7 +702,10 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_attribute_multiple(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product multiple attribute given
+        """
         self.setup_attributes()
         self.data.update({
             "product_attributes": [
@@ -657,7 +741,11 @@ class ProductSerializerCreateTest(APITestCase):
             )
 
     def test_product_create_attribute_multiple_invalid_connection(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product attribute given but
+        non existent connection
+        """
         self.setup_attributes()
         self.data.update({
             "product_attributes": [
@@ -675,7 +763,11 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_attribute_multiple_invalid_connection_pt(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product attribute given but
+        connection has another product template
+        """
         self.setup_attributes()
         self.setup_other_product_attr()
         self.data.update({
@@ -694,7 +786,11 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_attribute_multiple_invalid_connection_duplicate(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product attribute given but
+        connection duplicate
+        """
         self.setup_attributes()
         self.data.update({
             "product_attributes": [
@@ -712,7 +808,11 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_attribute_multiple_invalid_value(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product attribute given but
+        non existent value
+        """
         self.setup_attributes()
         self.data.update({
             "product_attributes": [
@@ -730,7 +830,12 @@ class ProductSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_product_create_attribute_multiple_invalid_value_attribute(self):
-        """Test attribute creation"""
+        """
+        Test Product create with
+        product attribute given but
+        value's attribute is different form
+        connection's one
+        """
         self.setup_attributes()
         self.data.update({
             "product_attributes": [
@@ -845,6 +950,10 @@ class ProductSerializerUpdateTest(APITestCase):
         )
 
     def product_update(self, data, fail=False):
+        """
+        Serialize product with given data,
+        check if its suppose to fail or not
+        """
         serializer = ProductSerializer(self.p, data=data)
         if not fail:
             self.assertTrue(serializer.is_valid(), serializer.errors)
@@ -855,6 +964,10 @@ class ProductSerializerUpdateTest(APITestCase):
         return serializer
 
     def test_product_update_name(self):
+        """
+        Test Product update,
+        name change
+        """
 
         self.data['name'] = "Not Bear"
 
@@ -862,6 +975,10 @@ class ProductSerializerUpdateTest(APITestCase):
         self.assertEqual(self.p.name, self.data['name'])
 
     def test_product_update_name_missing(self):
+        """
+        Test Product update,
+        with no name given
+        """
 
         name = self.data['name']
         del self.data['name']
@@ -870,6 +987,10 @@ class ProductSerializerUpdateTest(APITestCase):
         self.assertEqual(self.p.name, name)
 
     def test_product_update_description(self):
+        """
+        Test Product update,
+        description change
+        """
 
         self.data['description'] = "Its Not Bear, its a BEER"
 
@@ -877,6 +998,10 @@ class ProductSerializerUpdateTest(APITestCase):
         self.assertEqual(self.p.description, self.data['description'])
 
     def test_product_update_description_missing(self):
+        """
+        Test Product update,
+        with no description given
+        """
 
         description = self.data['description']
         del self.data['description']
@@ -885,6 +1010,10 @@ class ProductSerializerUpdateTest(APITestCase):
         self.assertEqual(self.p.description, description)
 
     def test_product_update_active(self):
+        """
+        Test Product update,
+        active change
+        """
         self.data['active'] = True
         serializer = self.product_update(self.data)
         self.assertTrue(self.p.active)
@@ -902,6 +1031,10 @@ class ProductSerializerUpdateTest(APITestCase):
         self.assertFalse(self.p.active)
 
     def test_product_update_template(self):
+        """
+        Test Product update,
+        template change
+        """
         self.setup_other_product()  # another product template id=2
         pt = self.p.product_template.id
         self.data['product_template_id'] = 2
@@ -910,6 +1043,10 @@ class ProductSerializerUpdateTest(APITestCase):
         self.assertEqual(self.p.product_template.id, pt)
 
     def test_product_update_minprice(self):
+        """
+        Test Product update,
+        min price amount and currency
+        """
         self.data['min_price_amount'] = 10.19
         self.data['min_price_currency'] = 'EUR'
 
@@ -925,11 +1062,20 @@ class ProductSerializerUpdateTest(APITestCase):
         )
 
     def test_product_update_minprice_negative(self):
+        """
+        Test Product update,
+        negative min price
+        """
         self.data['min_price_amount'] = -10.19
 
         serializer = self.product_update(self.data, fail=True)
 
     def test_product_update_minprice_four_places(self):
+        """
+        Test Product update,
+        min price validity
+        with 4 decimal places
+        """
         self.data['min_price_amount'] = 10.1908
         self.data['min_price_currency'] = 'EUR'
 
@@ -945,12 +1091,21 @@ class ProductSerializerUpdateTest(APITestCase):
         )
 
     def test_product_update_minprice_moredecimalplaces(self):
+        """
+        Test Product update,
+        min price validity with
+        more than 4 decimal places
+        """
         self.data['min_price_amount'] = 10.100959
         self.data['min_price_currency'] = 'EUR'
 
         serializer = self.product_update(self.data, fail=True)
 
     def test_product_update_minprice_amount_only(self):
+        """
+        Test Product update,
+        change amount only
+        """
         self.data['min_price_amount'] = 10.10
 
         serializer = self.product_update(self.data)
@@ -965,6 +1120,10 @@ class ProductSerializerUpdateTest(APITestCase):
         )
 
     def test_product_update_minprice_currency_only(self):
+        """
+        Test Product update,
+        change currency only
+        """
 
         min_price = self.data['min_price_amount']
         del self.data['min_price_amount']
@@ -981,11 +1140,19 @@ class ProductSerializerUpdateTest(APITestCase):
         )
 
     def test_product_update_minprice_currency_invalid(self):
+        """
+        Test Product update,
+        change currency to an invalid currency code
+        """
         self.data['min_price_currency'] = 'ASD'
 
         serializer = self.product_update(self.data, fail=True)
 
     def test_product_update_minprice_currency_blank(self):
+        """
+        Test Product update,
+        currency blank
+        """
         self.data['min_price_currency'] = ''
 
         serializer = self.product_update(self.data)
@@ -996,11 +1163,19 @@ class ProductSerializerUpdateTest(APITestCase):
         )
 
     def test_product_update_minprice_currency_none(self):
+        """
+        Test Product update,
+        currency none
+        """
         self.data['min_price_currency'] = None
 
         serializer = self.product_update(self.data, fail=True)
 
     def test_product_update_attr_add(self):
+        """
+        Test Product update,
+        product attribute addition
+        """
         attr = Attribute.objects.create(name="Country of origin")
         av = AttributeValue.objects.create(
             id=200,
@@ -1026,18 +1201,28 @@ class ProductSerializerUpdateTest(APITestCase):
         self.check_attributes_validity(self.data, original_id=False)
 
     def test_product_update_attr_add_invalid_connection(self):
+        """
+        Test Product update,
+        product attribute addition
+        connection is for another product template
+        """
         self.setup_attributes()
         self.setup_other_product()
         self.data['product_attributes'].append(
             {
                 "connection": 400,
-                "value": 200
+                "value": 400
             }
         )
 
         serializer = self.product_update(self.data, fail=True)
 
     def test_product_update_attr_add_invalid_value(self):
+        """
+        Test Product update,
+        product attribute addition
+        value is not associated with connection
+        """
         self.setup_attributes()
         self.setup_other_product()
         self.data['product_attributes'].append(
@@ -1050,6 +1235,10 @@ class ProductSerializerUpdateTest(APITestCase):
         serializer = self.product_update(self.data, fail=True)
 
     def test_product_update_attr_delete(self):
+        """
+        Test Product update,
+        product attribute delete
+        """
 
         self.setup_attributes()
         serializer = self.product_update(self.data)
@@ -1099,6 +1288,10 @@ class ProductVariantSerializerCreateTest(APITestCase):
         }
 
     def variant_create(self, data, fail=False):
+        """
+        Serialize variant with given data,
+        check if its suppose to fail or not
+        """
         serializer = ProductVariantSerializer(data=data)
         if not fail:
             self.assertTrue(serializer.is_valid(), serializer.errors)
@@ -1153,7 +1346,9 @@ class ProductVariantSerializerCreateTest(APITestCase):
         )
 
     def test_variant_create(self):
-
+        """
+        Test Variant create
+        """
         self.variant_create(self.data)
         v = ProductVariant.objects.first()
         self.assertEqual(self.data['product_id'], v.product.id)
@@ -1161,6 +1356,10 @@ class ProductVariantSerializerCreateTest(APITestCase):
         self.assertFalse(v.active)
 
     def test_variant_create_no_name(self):
+        """
+        Test Variant create,
+        with no given name
+        """
         data = {
             "product_id": 1
         }
@@ -1169,6 +1368,10 @@ class ProductVariantSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_variant_create_no_p_id(self):
+        """
+        Test Variant create,
+        with no given product id
+        """
         data = {
             "name": "Modelo Especial - 330ml"
         }
@@ -1177,6 +1380,10 @@ class ProductVariantSerializerCreateTest(APITestCase):
         self.assertFalse(serializer.is_valid())
 
     def test_variant_create_active(self):
+        """
+        Test Variant create,
+        with active
+        """
         self.data['active'] = True
 
         self.variant_create(self.data)
@@ -1185,6 +1392,10 @@ class ProductVariantSerializerCreateTest(APITestCase):
         self.assertTrue(v.active)
 
     def test_variant_create_price(self):
+        """
+        Test Variant create,
+        both price and currency
+        """
         self.data['price_amount'] = 99.99
         self.data['price_currency'] = 'USD'
 
@@ -1200,6 +1411,10 @@ class ProductVariantSerializerCreateTest(APITestCase):
         )
 
     def test_variant_create_price_only(self):
+        """
+        Test Variant create,
+        price only
+        """
         self.data['price_amount'] = 99.99
 
         self.variant_create(self.data)
@@ -1214,17 +1429,29 @@ class ProductVariantSerializerCreateTest(APITestCase):
         )
 
     def test_variant_create_price_negative(self):
+        """
+        Test Variant create,
+        price negative
+        """
         self.data['price_amount'] = -99.99
 
         self.variant_create(self.data, fail=True)
 
     def test_variant_create_price_currency_invalid(self):
+        """
+        Test Variant create,
+        currency invalid code
+        """
         self.data['price_amount'] = 99.99
         self.data['price_currency'] = "ASD"
 
         self.variant_create(self.data, fail=True)
 
     def test_variant_create_attributes(self):
+        """
+        Test Variant create,
+        variant attribute create
+        """
         self.setup_attributes()
         self.data['variant_attributes'] = [
             {
@@ -1251,6 +1478,10 @@ class ProductVariantSerializerCreateTest(APITestCase):
         )
 
     def test_variant_create_attributes_multiple(self):
+        """
+        Test Variant create,
+        variant attribute create multiple
+        """
         self.setup_attributes()
         self.data['variant_attributes'] = [
             {
@@ -1283,6 +1514,11 @@ class ProductVariantSerializerCreateTest(APITestCase):
             )
 
     def test_variant_create_attributes_invalid_connection(self):
+        """
+        Test Variant create,
+        variant attribute create,
+        connection not associated with variant
+        """
         self.setup_attributes()
         self.data['variant_attributes'] = [
             {
@@ -1293,6 +1529,12 @@ class ProductVariantSerializerCreateTest(APITestCase):
         self.variant_create(self.data, fail=True)
 
     def test_variant_create_attributes_invalid_value(self):
+        """
+        Test Variant create,
+        variant attribute create,
+        connoction's attribute and
+        value's attribute are different
+        """
         self.setup_attributes()
         self.data['variant_attributes'] = [
             {
@@ -1382,6 +1624,10 @@ class ProductVariantSerializerUpdateTest(APITestCase):
         self.data = serializer.data
 
     def variant_update(self, data, fail=False):
+        """
+        Serialize variant with given data,
+        check if its suppose to fail or not
+        """
         serializer = ProductVariantSerializer(self.v, data=data)
         if not fail:
             self.assertTrue(serializer.is_valid(), serializer.errors)
@@ -1392,17 +1638,29 @@ class ProductVariantSerializerUpdateTest(APITestCase):
         return serializer
 
     def test_variant_change_name(self):
+        """
+        Test variant update,
+        name changed
+        """
         self.data['name'] = "Not a Corona Beer"
 
         self.variant_update(self.data)
         self.assertEqual(self.v.name, self.data['name'])
 
     def test_variant_change_product_id(self):
+        """
+        Test variant update,
+        product_id changed
+        """
         self.data['product_id'] = 2
 
         self.variant_update(self.data, fail=True)
 
     def test_variant_change_price(self):
+        """
+        Test variant update,
+        change price and curency
+        """
         self.setup_price()
         self.variant_update(self.data)
 
@@ -1410,6 +1668,10 @@ class ProductVariantSerializerUpdateTest(APITestCase):
         self.assertEqual(self.v.price.amount, self.data['price_amount'])
 
     def test_variant_change_price_amount(self):
+        """
+        Test variant update,
+        change price amount
+        """
         self.setup_price()
         self.variant_update(self.data)
 
@@ -1420,6 +1682,10 @@ class ProductVariantSerializerUpdateTest(APITestCase):
         self.assertEqual(self.v.price.amount, self.data['price_amount'])
 
     def test_variant_change_price_currency(self):
+        """
+        Test variant update,
+        change currency only
+        """
         self.setup_price()
         self.variant_update(self.data)
 
@@ -1430,6 +1696,10 @@ class ProductVariantSerializerUpdateTest(APITestCase):
         self.assertEqual(self.v.price_currency, self.data['price_currency'])
 
     def test_variant_change_attribute_add(self):
+        """
+        Test variant update,
+        add variant attribute
+        """
         attr = Attribute.objects.create(name="Shape of bottle")
         avalue = AttributeValue.objects.create(
             id=2000,
@@ -1455,6 +1725,10 @@ class ProductVariantSerializerUpdateTest(APITestCase):
         self.check_attributes_validity(self.data, original_id=False)
 
     def test_variant_change_attribute_delete(self):
+        """
+        Test variant update,
+        delete variant attribute
+        """
         self.setup_attributes()
         del self.data['variant_attributes'][0]
 
@@ -1462,6 +1736,10 @@ class ProductVariantSerializerUpdateTest(APITestCase):
         self.check_attributes_validity(self.data, original_id=True)
 
     def test_variant_change_attribute_modify(self):
+        """
+        Test variant update,
+        modify value of variant attribute
+        """
         self.setup_attributes()
         self.data['variant_attributes'][1]['value'] = 202
 

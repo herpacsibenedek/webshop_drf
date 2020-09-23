@@ -306,6 +306,10 @@ class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
         ordering = ['-id']
 
     def create(self, validated_data):
+        """
+        Create a product Variant instance and
+        its connectedVarianttAttribute
+        """
         variant = ProductVariant(
             name=validated_data['name'],
             product=validated_data['product']['id'],
@@ -330,6 +334,8 @@ class ProductVariantSerializer(serializers.HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         """
+        Update a product Variant instance and
+        its connectedVarianttAttribute
         """
         instance.name = validated_data.get('name', instance.name)
         instance.active = validated_data.get('active', instance.active)
